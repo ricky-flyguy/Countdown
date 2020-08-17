@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Countdown</string>
+    <string name="next_timer">Next Timer</string>
+    <string name="next_timer_title">Add a title</string>
+    <string name="next_timer_remaining">00y : 00m : 00w : 00d : 00h : 00m : 00s</string>
+    <string name="next_timer_date">Jan, 01, 9999, @00:00am</string>
+</resources>
