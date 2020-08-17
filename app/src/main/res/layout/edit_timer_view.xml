@@ -7,10 +7,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_margin="10dp"
-
+        android:paddingTop="40dp"
         >
 
         <LinearLayout
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="40dp"
             >
 
             <TextView
@@ -107,13 +107,13 @@
         <Button
             android:id="@+id/confirmBtn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Confirm"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_margin="25dp"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="25dp"
-            />
+            android:text="Confirm"
+            android:onClick="onConfirmClicked"/>
 
     </LinearLayout>
 
