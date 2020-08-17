@@ -26,7 +26,7 @@ public class EditView extends AppCompatActivity {
 
     final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM, d, y");
     final SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
-    final SimpleDateFormat fullFormat = new SimpleDateFormat("MMM, d, y @ h:m a");
+    final SimpleDateFormat fullFormat = new SimpleDateFormat("MMM, d, y @ h:mm a");
 
     Calendar calendar;
     int year;
@@ -52,6 +52,7 @@ public class EditView extends AppCompatActivity {
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
+        date_result_textView.setText(dateFormat.format(calendar.getTime()));
 
         datePicker.init(year, month, day,
                 new DatePicker.OnDateChangedListener() {
@@ -65,6 +66,8 @@ public class EditView extends AppCompatActivity {
                     }
                 });
 
+        hour = 00;
+        minute = 00;
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int _hour, int _minute) {
