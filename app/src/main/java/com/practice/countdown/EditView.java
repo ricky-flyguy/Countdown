@@ -3,8 +3,8 @@ package com.practice.countdown;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class EditView extends AppCompatActivity {
 
@@ -23,6 +22,7 @@ public class EditView extends AppCompatActivity {
 
     private TextView date_result_textView;
     private TextView time_result_textView;
+    private EditText name_input;
 
     final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM, d, y");
     final SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
@@ -45,6 +45,7 @@ public class EditView extends AppCompatActivity {
         timePicker = (TimePicker)findViewById(R.id.time_picker);
         date_result_textView = (TextView)findViewById(R.id.date_result);
         time_result_textView = (TextView)findViewById(R.id.time_result);
+        name_input = (EditText)findViewById(R.id.name_textBox);
 
         calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -86,8 +87,9 @@ public class EditView extends AppCompatActivity {
         calendar.set(year, month, day, hour, minute);
 
         AlertDialog.Builder alert = new AlertDialog.Builder(EditView.this);
-        alert.setTitle("Confirm changes!");
-        alert.setMessage("Set timer for " + fullFormat.format(calendar.getTime()) + " ?");
+        alert.setTitle("Please Confirm!");
+        alert.setMessage("\nName: " + name_input.getText() + "\n\n"
+            + "Date: " + fullFormat.format(calendar.getTime()));
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

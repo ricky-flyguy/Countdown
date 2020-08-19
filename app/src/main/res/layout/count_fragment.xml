@@ -3,40 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/editLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:gravity="right"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/timer_view_editBtn"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="Edit" />
-
-    </LinearLayout>
-
-    <fragment
-        android:id="@+id/timer_view_countFrag"
-        android:name="com.practice.countdown.CountdownFragment"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="150dp"
-        />
-
-    <!--Old count down layout
     <LinearLayout
         android:id="@+id/countdownLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
         android:orientation="vertical">
 
         <TextView
@@ -46,14 +18,12 @@
             android:layout_gravity="center"
             android:text="Timer Title"
             android:textColor="#000"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textSize="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="50dp"
             android:orientation="vertical"
             android:padding="5dp">
 
@@ -343,12 +313,8 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         </LinearLayout>
-    </LinearLayout>
-    -->
 
+    </LinearLayout>
 
 </LinearLayout>
-
-
