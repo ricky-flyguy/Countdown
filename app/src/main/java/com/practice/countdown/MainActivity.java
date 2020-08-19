@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -25,6 +26,11 @@ public class MainActivity extends AppCompatActivity {
     Button openTimerBtn;
     CountdownData data[];
 
+    DataManager dataManager;
+    public final static SimpleDateFormat FULL_DATE_FORMAT = new SimpleDateFormat("MMM, d, y @ h:mm a");
+    public final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMMM, d, y");
+    public final static SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("h:mm a");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.list_view);
         opnEditBtn = findViewById(R.id.openEdit);
         openTimerBtn = findViewById(R.id.openTimer);
+
+        dataManager = new DataManager(this);
 
         opnEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +58,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        data = new CountdownData[10];
+        dataManager.Load();
+
+        data = dataManager.getDataList().toArray(new CountdownData[dataManager.getDataList().size()]);
         CounterWidgetAdapter adapter = new CounterWidgetAdapter(this, data);
         listView.setAdapter(adapter);
     }
@@ -84,8 +94,10 @@ public class MainActivity extends AppCompatActivity {
             LayoutInflater layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View listElement = layoutInflater.inflate(R.layout.timer_list_view, parent, false);
             TextView titleTextView = listElement.findViewById(R.id.timer_list_item_title);
-            TextView dateTextView = listElement.findViewById(R.id.timer_list_item_remaining);
+            TextView dateTextView = listElement.findViewById(R.id.timer_list_item_date);
 
+            titleTextView.setText(data[index].getName());
+            dateTextView.setText(MainActivity.FULL_DATE_FORMAT.format(data[index].getDate()));
 
             return listElement;
         }

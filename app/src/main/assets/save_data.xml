@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<timers>
+    <timer>
+        <id>000</id>
+        <name>Birthday</name>
+        <endDate>1566232055000</endDate>
+    </timer>
+    <timer>
+        <id>001</id>
+        <name>Christmas 2020</name>
+        <endDate>1608872400000</endDate>
+    </timer>
+    <timer>
+        <id>002</id>
+        <name>Vacation</name>
+        <endDate>1622734200000</endDate>
+    </timer>
+</timers>

@@ -24,10 +24,6 @@ public class EditView extends AppCompatActivity {
     private TextView time_result_textView;
     private EditText name_input;
 
-    final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM, d, y");
-    final SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
-    final SimpleDateFormat fullFormat = new SimpleDateFormat("MMM, d, y @ h:mm a");
-
     Calendar calendar;
     int year;
     int month;
@@ -53,7 +49,7 @@ public class EditView extends AppCompatActivity {
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        date_result_textView.setText(dateFormat.format(calendar.getTime()));
+        date_result_textView.setText(MainActivity.DATE_FORMAT.format(calendar.getTime()));
 
         datePicker.init(year, month, day,
                 new DatePicker.OnDateChangedListener() {
@@ -63,7 +59,7 @@ public class EditView extends AppCompatActivity {
                         month = _month;
                         day = _day;
                         calendar.set(year, month, day);
-                        date_result_textView.setText(dateFormat.format(calendar.getTime()));
+                        date_result_textView.setText(MainActivity.DATE_FORMAT.format(calendar.getTime()));
                     }
                 });
 
@@ -76,7 +72,7 @@ public class EditView extends AppCompatActivity {
                 minute = _minute;
                 second = 00;
                 calendar.setTime(MainActivity.getTime(0, 0, 0, hour, minute, second));
-                time_result_textView.setText(timeFormat.format(calendar.getTime()));
+                time_result_textView.setText(MainActivity.TIME_FORMAT.format(calendar.getTime()));
             }
         });
     }
@@ -89,7 +85,7 @@ public class EditView extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(EditView.this);
         alert.setTitle("Please Confirm!");
         alert.setMessage("\nName: " + name_input.getText() + "\n\n"
-            + "Date: " + fullFormat.format(calendar.getTime()));
+            + "Date: " + MainActivity.FULL_DATE_FORMAT.format(calendar.getTime()));
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
