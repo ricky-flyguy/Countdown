@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
         CountdownData data[];
         Context context;
 
-        MyAdapter (Context context, String[] titles, String[] desc, int[] images) {
-            super(context, R.layout.list_element, R.id.title_text, titles);
+        CounterWidgetAdapter (Context context, CountdownData[] data) {
+            super(context, R.layout.timer_list_view, R.id.timer_list_item_title, data);
             this.context = context;
             this.data = data;
         }
