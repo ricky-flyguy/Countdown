@@ -331,7 +331,7 @@
                 android:id="@+id/openEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="Edit View"/>
+                android:text="Save XML"/>
 
             <Button
                 android:id="@+id/openTimer"
