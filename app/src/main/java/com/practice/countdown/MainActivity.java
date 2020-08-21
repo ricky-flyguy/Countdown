@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,12 +28,13 @@ public class MainActivity extends AppCompatActivity {
 
     Button opnEditBtn;
     Button openTimerBtn;
-    CountdownData data[];
+    CountdownData dataArray[];
 
     DataManager dataManager;
     public final static SimpleDateFormat FULL_DATE_FORMAT = new SimpleDateFormat("MMM, d, y @ h:mm a");
     public final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMMM, d, y");
     public final static SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("h:mm a");
+    public final int LAUNCH_EDITVIEW_ACTIVITY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent (MainActivity.this, EditView.class);
-                startActivity(intent);
+                startActivityForResult(intent, LAUNCH_EDITVIEW_ACTIVITY);
+                //startActivity(intent);
             }
         });
 
@@ -73,9 +76,29 @@ public class MainActivity extends AppCompatActivity {
 
         dataManager.Load();
 
-        data = dataManager.getDataList().toArray(new CountdownData[dataManager.getDataList().size()]);
-        CounterWidgetAdapter adapter = new CounterWidgetAdapter(this, data);
+        dataArray = dataManager.getDataList().toArray(new CountdownData[dataManager.getDataList().size()]);
+        CounterWidgetAdapter adapter = new CounterWidgetAdapter(this, dataArray);
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == LAUNCH_EDITVIEW_ACTIVITY) {
+            if (resultCode == Activity.RESULT_OK) {
+                String id = data.getStringExtra(DataManager.ID_TAG);
+                String name = data.getStringExtra(DataManager.NAME_TAG);
+                long endDate = data.getLongExtra(DataManager.END_DATE_TAG, 0);
+
+                CountdownData cData = new CountdownData(id, name, endDate);
+                dataManager.getDataList().add(cData);
+                dataManager.Save();
+            }
+            if (requestCode == Activity.RESULT_CANCELED) {
+
+            }
+        }
     }
 
     public static Date getTime(int year, int month, int day, int hour, int min, int sec) {

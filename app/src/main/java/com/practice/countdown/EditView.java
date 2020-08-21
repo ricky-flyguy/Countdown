@@ -1,6 +1,8 @@
 package com.practice.countdown;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -79,9 +81,13 @@ public class EditView extends AppCompatActivity {
 
     public void onConfirmClicked(View view) {
 
-        // Get set date & time from pickers
         calendar.set(year, month, day, hour, minute);
 
+        final String id = "id000";
+        final String name = name_input.getText().toString();
+        final long endDate = calendar.getTimeInMillis();
+
+        // Get set date & time from pickers
         AlertDialog.Builder alert = new AlertDialog.Builder(EditView.this);
         alert.setTitle("Please Confirm!");
         alert.setMessage("\nName: " + name_input.getText() + "\n\n"
@@ -89,13 +95,18 @@ public class EditView extends AppCompatActivity {
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
-
-
                 // Create data for the specified date
                 // Bundle data to be passed out of activity
                 // Go back to home page
+
+                CountdownData countdownData = new CountdownData(id, name, endDate);
+                Intent intent = new Intent();
+                intent.putExtra(DataManager.ID_TAG, countdownData.getId());
+                intent.putExtra(DataManager.NAME_TAG, countdownData.getName());
+                intent.putExtra(DataManager.END_DATE_TAG, countdownData.getEndTime());
+                setResult(Activity.RESULT_OK, intent);
                 dialogInterface.dismiss();
+                finish();
             }
         });
 

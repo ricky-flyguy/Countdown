@@ -10,9 +10,15 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -31,11 +37,13 @@ import javax.xml.transform.stream.StreamResult;
 
 public class DataManager {
 
-    final String TIMERS_TAG = "timers";
-    final String TIMER_TAG = "timer";
-    final String ID_TAG = "id";
-    final String NAME_TAG = "name";
-    final String END_DATE_TAG = "endDate";
+    public final static String TIMERS_TAG = "timers";
+    public final static String TIMER_TAG = "timer";
+    public final static String ID_TAG = "id";
+    public final static String NAME_TAG = "name";
+    public final static String END_DATE_TAG = "endDate";
+
+    final String SAVE_FILE_NAME = "save_data.xml";
 
     private Context context;
     private ArrayList<CountdownData> dataList;
@@ -86,7 +94,7 @@ public class DataManager {
                         map.put(END_DATE_TAG, currentValue);
                     else if (localName.equalsIgnoreCase(TIMER_TAG)) {
                         data = new CountdownData(map.get(ID_TAG), map.get(NAME_TAG), Long.parseLong(map.get(END_DATE_TAG)));
-                        getDataList().add(data);
+                        dataList.add(data);
                     }
                 }
 
@@ -98,8 +106,20 @@ public class DataManager {
             };
 
             // TODO: Load file from app internal storage
-            InputStream inputStream = context.getAssets().open("save_data.xml");
-            parser.parse(inputStream, handler);
+
+            String filePath = context.getFilesDir() + "/" + SAVE_FILE_NAME;
+            File saveFile = new File(filePath);
+
+            if (saveFile.exists() == false) {
+                Toast.makeText(context, "no save file found.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            FileInputStream fInputStream = new FileInputStream(filePath);
+            parser.parse(fInputStream, handler);
+
+            //InputStream inputStream = context.openFileInput(filePath);
+            //parser.parse(inputStream, handler);
 
             Toast.makeText(context, "Size: " + dataList.size(), Toast.LENGTH_SHORT).show();
         }
@@ -110,7 +130,16 @@ public class DataManager {
     }
 
     public void Save() {
-        CreateXML();
+        // TODO: Save to app internal storage
+
+        String str = CreateXML();
+        FileOutputStream fileOutputStream = null;
+        try {
+            fileOutputStream = context.openFileOutput(SAVE_FILE_NAME, Context.MODE_PRIVATE);
+            fileOutputStream.write(str.getBytes("UTF-8"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private String CreateXML() {
@@ -172,12 +201,8 @@ public class DataManager {
                 transformer.transform(new DOMSource(document), new StreamResult(sw));
                 xmlString = sw.toString();
 
-                Toast.makeText(context, "data: " + xmlString, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "data: " + xmlString, Toast.LENGTH_LONG).show();
 
-                // TODO: Save to app internal storage
-
-            } catch (TransformerConfigurationException e) {
-                e.printStackTrace();
             } catch (TransformerException e) {
                 e.printStackTrace();
             }
