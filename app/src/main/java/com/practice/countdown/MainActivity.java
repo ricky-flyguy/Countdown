@@ -22,6 +22,9 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     ListView listView;
+
+    Button addBtn;
+
     Button opnEditBtn;
     Button openTimerBtn;
     CountdownData data[];
@@ -37,16 +40,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         listView = findViewById(R.id.list_view);
+
+        addBtn = findViewById(R.id.add_button);
+
         opnEditBtn = findViewById(R.id.openEdit);
         openTimerBtn = findViewById(R.id.openTimer);
 
         dataManager = new DataManager(this);
 
-        opnEditBtn.setOnClickListener(new View.OnClickListener() {
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent (MainActivity.this, EditView.class);
                 startActivity(intent);
+            }
+        });
+
+        opnEditBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dataManager.Save();
             }
         });
 
