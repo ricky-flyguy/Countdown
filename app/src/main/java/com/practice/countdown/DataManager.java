@@ -37,11 +37,11 @@ import javax.xml.transform.stream.StreamResult;
 
 public class DataManager {
 
-    final String TIMERS_TAG = "timers";
-    final String TIMER_TAG = "timer";
-    final String ID_TAG = "id";
-    final String NAME_TAG = "name";
-    final String END_DATE_TAG = "endDate";
+    public final static String TIMERS_TAG = "timers";
+    public final static String TIMER_TAG = "timer";
+    public final static String ID_TAG = "id";
+    public final static String NAME_TAG = "name";
+    public final static String END_DATE_TAG = "endDate";
 
     final String SAVE_FILE_NAME = "save_data.xml";
 
