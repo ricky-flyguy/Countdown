@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button opnEditBtn;
     Button openTimerBtn;
-    CountdownData data[];
+    CountdownData dataArray[];
 
     DataManager dataManager;
     public final static SimpleDateFormat FULL_DATE_FORMAT = new SimpleDateFormat("MMM, d, y @ h:mm a");
@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
         dataManager.Load();
 
-        data = dataManager.getDataList().toArray(new CountdownData[dataManager.getDataList().size()]);
-        CounterWidgetAdapter adapter = new CounterWidgetAdapter(this, data);
+        dataArray = dataManager.getDataList().toArray(new CountdownData[dataManager.getDataList().size()]);
+        CounterWidgetAdapter adapter = new CounterWidgetAdapter(this, dataArray);
         listView.setAdapter(adapter);
     }
 
