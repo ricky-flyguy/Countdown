@@ -136,7 +136,7 @@ public class DataManager {
         FileOutputStream fileOutputStream = null;
         try {
             fileOutputStream = context.openFileOutput(SAVE_FILE_NAME, Context.MODE_PRIVATE);
-            fileOutputStream.write(str.getBytes("UTF-8"));
+            fileOutputStream.write(str.getBytes("UTF-16"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -196,6 +196,7 @@ public class DataManager {
             try {
                 StringWriter sw = new StringWriter();
                 transformer = transformerFactory.newTransformer();
+                transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-16");
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
                 transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "3");
                 transformer.transform(new DOMSource(document), new StreamResult(sw));
