@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     Button opnEditBtn;
     Button openTimerBtn;
     CountdownData dataArray[];
+    CounterWidgetAdapter adapter;
 
     DataManager dataManager;
     public final static SimpleDateFormat FULL_DATE_FORMAT = new SimpleDateFormat("MMM, d, y @ h:mm a");
@@ -47,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
         opnEditBtn = findViewById(R.id.openEdit);
         openTimerBtn = findViewById(R.id.openTimer);
-
-        dataManager = new DataManager(this);
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,11 +73,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        dataManager = new DataManager(this);
         dataManager.Load();
 
-        dataArray = dataManager.getDataList().toArray(new CountdownData[dataManager.getDataList().size()]);
-        CounterWidgetAdapter adapter = new CounterWidgetAdapter(this, dataArray);
-        listView.setAdapter(adapter);
+        refreshListView();
     }
 
     @Override
@@ -94,11 +92,22 @@ public class MainActivity extends AppCompatActivity {
                 CountdownData cData = new CountdownData(id, name, endDate);
                 dataManager.getDataList().add(cData);
                 dataManager.Save();
+
+                refreshListView();
             }
             if (requestCode == Activity.RESULT_CANCELED) {
 
             }
         }
+    }
+
+    private void refreshListView() {
+        // fill the dataArray with info stored in our dataManager
+        // reset adapter reference with new array info
+        // reset the list Views adapter since we created a new reference
+        dataArray = dataManager.getDataList().toArray(new CountdownData[dataManager.getDataList().size()]);
+        adapter = new CounterWidgetAdapter(this, dataArray);
+        listView.setAdapter(adapter);
     }
 
     public static Date getTime(int year, int month, int day, int hour, int min, int sec) {
