@@ -43,7 +43,7 @@ public class DataManager {
     public final static String NAME_TAG = "name";
     public final static String END_DATE_TAG = "endDate";
 
-    final String SAVE_FILE_NAME = "save_data.xml";
+    private final String SAVE_FILE_NAME = "save_data.xml";
 
     private Context context;
     private ArrayList<CountdownData> dataList;
@@ -55,6 +55,10 @@ public class DataManager {
 
     public void setDataList(ArrayList<CountdownData> dataList) {
         this.dataList = dataList;
+    }
+
+    public void addData(CountdownData data) {
+        this.dataList.add(data);
     }
     //endregion
 

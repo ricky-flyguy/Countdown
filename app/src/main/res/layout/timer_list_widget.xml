@@ -10,7 +10,7 @@
     tools:visibility="visible">
 
     <TextView
-        android:id="@+id/timer_list_item_title"
+        android:id="@+id/list_item_title"
         android:layout_width="75dp"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
@@ -21,8 +21,8 @@
 
     <LinearLayout
         android:id="@+id/timer_list_item_time_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="5dp"
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/next_timer_remaining"
-            tools:visibility="visible" />
+            tools:visibility="gone" />
 
     </LinearLayout>
 
@@ -51,7 +51,8 @@
         android:gravity="end"
         android:orientation="horizontal"
         android:padding="5dp"
-        tools:visibility="gone">
+        tools:visibility="visible"
+        >
 
         <Button
             android:id="@+id/options_layout_option_button"
@@ -64,7 +65,8 @@
             android:id="@+id/options_layout_delete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/ic_delete" />
+            app:srcCompat="@android:drawable/ic_delete"
+            tools:visibility="visible" />
 
 
     </LinearLayout>
