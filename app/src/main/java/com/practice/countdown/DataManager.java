@@ -43,7 +43,7 @@ public class DataManager {
     public final static String NAME_TAG = "name";
     public final static String END_DATE_TAG = "endDate";
 
-    final String SAVE_FILE_NAME = "save_data.xml";
+    private final String SAVE_FILE_NAME = "save_data.xml";
 
     private Context context;
     private ArrayList<CountdownData> dataList;
@@ -55,6 +55,10 @@ public class DataManager {
 
     public void setDataList(ArrayList<CountdownData> dataList) {
         this.dataList = dataList;
+    }
+
+    public void addData(CountdownData data) {
+        this.dataList.add(data);
     }
     //endregion
 
@@ -136,7 +140,7 @@ public class DataManager {
         FileOutputStream fileOutputStream = null;
         try {
             fileOutputStream = context.openFileOutput(SAVE_FILE_NAME, Context.MODE_PRIVATE);
-            fileOutputStream.write(str.getBytes("UTF-8"));
+            fileOutputStream.write(str.getBytes("UTF-16"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -196,6 +200,7 @@ public class DataManager {
             try {
                 StringWriter sw = new StringWriter();
                 transformer = transformerFactory.newTransformer();
+                transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-16");
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
                 transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "3");
                 transformer.transform(new DOMSource(document), new StreamResult(sw));
